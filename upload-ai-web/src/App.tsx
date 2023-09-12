@@ -15,12 +15,12 @@ export function App() {
 
 
         <div className="flex gap-3 items-center">
-          <span className="text-sm text-muted-foreground">
+          <span className="text-sm text-muted-foreground hidden lg:block">
             Desenvolvido no NLW da Rocketseat
           </span>
 
           {/* Por padrão ele vem na horizontal, mudando para vertical e definindo um tamanho */}
-          <Separator orientation="vertical" className="h-6" />
+          <Separator orientation="vertical" className="h-6 hidden lg:block" />
 
           <Button variant={"outline"}>
             <Github className="w-4 h-4 mr-2" />
@@ -31,7 +31,7 @@ export function App() {
 
       {/* Main */}
       {/* Flex-1 vai fazer ocupar o restante da altura limitado pela div pai */}
-      <main className="flex-1 p-6 flex gap-6">
+      <main className="flex-1 p-6 flex flex-col lg:flex-row gap-6">
         <div className="flex flex-col flex-1 gap-4">
           {/* textareas */}
           <div className="grid grid-rows-2 gap-4 flex-1">
@@ -48,15 +48,15 @@ export function App() {
             />
           </div>
 
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs lg:text-sm text-muted-foreground">
             Lembre-se: você pode utilizar a variável <code className="text-violet-500">{'{transcription}'}</code> no seu prompt para adicionar o conteúdo da transicrição do video selecionado
           </p>
 
         </div>
 
-        <aside className="w-1/5 space-y-6">
+        <aside className="lg:w-1/5 space-y-6">
           {/* Formulário 1  - carregar o vídeo */}
-          <form className="space-y-6">
+          <form className="space-y-6 ">
             <label htmlFor="video" className="border flex rounded-md aspect-video cursor-pointer border-dashed text-sm flex-col gap-2 items-center justify-center text-muted-foreground hover:bg-primary/5">
 
               <FileVideo className="w-5 h-5" />
