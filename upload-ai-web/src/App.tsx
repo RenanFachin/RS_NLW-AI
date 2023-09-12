@@ -1,6 +1,7 @@
+import { Button } from "./components/ui/button";
+
 export function App() {
   return (
-    <h1>upload-ai</h1>
-
+    <Button>upload-ai</Button>
   )
 }
