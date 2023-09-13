@@ -15,6 +15,7 @@ O que é possível que o usuário faça na aplicação.
 
 - [x] Deve ser possível obter todos os prompts;
 - [x] Deve ser possível realizar o upload dos vídeos;
+- [x] Deve ser possível obter a transcrição dos vídeos;
 
 ## Requisitos não funcionais
 Requisitos que não partem do cliente, são requisitos mais técnicos. ex: Qual banco de dados será utilizado.
@@ -22,13 +23,13 @@ Requisitos que não partem do cliente, são requisitos mais técnicos. ex: Qual 
 - [x] O vídeo a ser feito o upload deve ter no máximo 50mb;
 - [x] Os vídeos precisam ser do formato .mp3;
 - [x] Os vídeos que forem feito upload precisam ter os seus nomes alterados para evitar conflito.
-- [x] Os dados da aplicação precisam estar persistido em um banco PostgreSQL;
+- [x] Os dados da aplicação precisam estar persistidos em um banco PostgreSQL;
 
 
 ## Rotas
 - Listar todos os prompts
 ```bash
-GET /promps
+GET /prompts
 ```
 
 - Realizar o upload do vídeo
@@ -36,10 +37,15 @@ GET /promps
 POST /videos
 ```
 
+- Criar uma transcrição
+```bash
+POST /videos/:videoId/transcription
+```
+
 
 ## Instalação
 ```sh
-# Faça o clone do repotório
+# Faça o clone do repositório
 
 # Instalar as dependências do projeto
   npm install
