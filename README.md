@@ -39,6 +39,8 @@ O que é possível que o usuário faça na aplicação.
 
 - [x] Deve ser possível obter todos os prompts;
 - [x] Deve ser possível realizar o upload dos vídeos;
+- [x] Deve ser possível obter a transcrição dos vídeos;
+- [x] Deve ser possível obter o resumo da transcrição do vídeo;
 
 ## Requisitos não funcionais
 Requisitos que não partem do cliente, são requisitos mais técnicos. ex: Qual banco de dados será utilizado.
@@ -52,12 +54,22 @@ Requisitos que não partem do cliente, são requisitos mais técnicos. ex: Qual 
 ## Rotas
 - Listar todos os prompts
 ```bash
-GET /promps
+GET /prompts
 ```
 
 - Realizar o upload do vídeo
 ```bash
 POST /videos
+```
+
+- Criar uma transcrição
+```bash
+POST /videos/:videoId/transcription
+```
+
+- Gerando um resumo a partir da transcrição do vídeo
+```bash
+POST /ai/complete
 ```
 
 
@@ -86,7 +98,7 @@ npm run dev
 
 ## Como Usar API
 ```sh
-# Faça o clone do repotório
+# Faça o clone do repositório
 
 # Instalar as dependências do projeto
   npm install
@@ -104,3 +116,6 @@ npm run dev
 # Subindo o banco de dados com docker
 docker compose up -d
 ```
+
+## Variáveis de Ambiente
+Para elaboração que o projeto rode perfeitamente, é necessário que o dev tenha uma APIKEY válida na open ai e adicione no arquivo .env

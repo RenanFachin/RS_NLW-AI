@@ -69,3 +69,6 @@ POST /ai/complete
 # Subindo o banco de dados com docker
 docker compose up -d
 ```
+
+## Variáveis de Ambiente
+Para elaboração que o projeto rode perfeitamente, é necessário que o dev tenha uma APIKEY válida na open ai e adicione no arquivo .env
