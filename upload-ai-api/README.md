@@ -44,6 +44,10 @@ POST /videos
 POST /videos/:videoId/transcription
 ```
 
+- Gerando um resumo a partir da transcrição do vídeo
+```bash
+POST /ai/complete
+```
 
 ## Instalação
 ```sh
