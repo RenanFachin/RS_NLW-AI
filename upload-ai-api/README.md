@@ -8,6 +8,8 @@ Banco de dados utilizado: `POSTGRESQL`
 
 ORM: `PRISMA`
 
+API externa: `OPEN AI`
+
 Aplicação com docker para gerar o banco de dados
 
 ## Requisitos funcionais
