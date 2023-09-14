@@ -1,10 +1,11 @@
 import { Button } from "./components/ui/button";
-import { Github, FileVideo, Upload, Wand2 } from 'lucide-react'
+import { Github, Wand2 } from 'lucide-react'
 import { Separator } from "./components/ui/separator";
 import { Textarea } from "./components/ui/textarea";
 import { Label } from "./components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./components/ui/select";
 import { Slider } from "./components/ui/slider";
+import { VideoInputForm } from "./components/video-input-form";
 
 export function App() {
   return (
@@ -56,32 +57,7 @@ export function App() {
 
         <aside className="lg:w-1/5 space-y-6">
           {/* Formulário 1  - carregar o vídeo */}
-          <form className="space-y-6 ">
-            <label htmlFor="video" className="border flex rounded-md aspect-video cursor-pointer border-dashed text-sm flex-col gap-2 items-center justify-center text-muted-foreground hover:bg-primary/5">
-
-              <FileVideo className="w-5 h-5" />
-              Selecione um vídeo
-            </label>
-
-            {/* accept="video/mp4" -> Somente aceita arquivos do tipo .mp4 */}
-            <input type="file" id="video" accept="video/mp4" className="sr-only" />
-
-            <Separator />
-
-            <div className="space-y-1">
-              <Label htmlFor="transcription_prompt">Prompt de transcrição</Label>
-              <Textarea
-                id="transcription_prompt"
-                className="h-16 leading-relaxed resize-none"
-                placeholder="Inclua palavras-chave mencionadas no vídeo separadas por vírgula"
-              />
-            </div>
-
-            <Button type="submit" className="w-full">
-              Carregar vídeo
-              <Upload className="w-4 h-4 ml-2" />
-            </Button>
-          </form>
+          <VideoInputForm />
 
           {/* Formulário 2 */}
           <form className="space-y-5">
@@ -93,7 +69,7 @@ export function App() {
 
               <Select>
                 <SelectTrigger>
-                  <SelectValue placeholder="Selecione um prompt"/>
+                  <SelectValue placeholder="Selecione um prompt" />
                 </SelectTrigger>
 
                 <SelectContent>
