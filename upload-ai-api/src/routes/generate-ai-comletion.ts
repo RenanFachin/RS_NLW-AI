@@ -1,5 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { prisma } from "../lib/prisma";
+import { streamToResponse, OpenAIStream } from 'ai'
 import { z } from 'zod'
 import { openai } from "../lib/openai";
 
@@ -37,9 +38,19 @@ export async function generateAICompletionRoute(app: FastifyInstance) {
       temperature: temperature,
       messages: [
         { role: 'user', content: promptMessagem },
-      ]
+      ],
+      // Fazendo a resposta vir sendo plotada aos poucos para o usuário e não tudo ao final do processo
+      stream: true,
     })
 
-    return response
+    const stream = OpenAIStream(response)
+
+    streamToResponse(stream, reply.raw, {
+      headers: {
+        // Estas configurações simulam o cors origin: '*'
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+      }
+    })
   })
 }
