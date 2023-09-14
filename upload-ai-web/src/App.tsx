@@ -8,17 +8,27 @@ import { Slider } from "./components/ui/slider";
 import { VideoInputForm } from "./components/video-input-form";
 import { PromptSelect } from "./components/prompt-select";
 import { useState } from "react";
+import { useCompletion } from 'ai/react'
 
 export function App() {
   const [temperature, setTemperature] = useState(0.5)
 
-  function handlePromptSelected(template: string) {
-    console.log(template)
-  }
 
   // Capturando o valor do videoId que é gerado no componente video-input-form
   const [videoId, setVideoId] = useState<string | null>(null)
 
+  const {
+    input, setInput, handleInputChange, handleSubmit, completion, isLoading
+  } = useCompletion({
+    api: 'http://localhost:3333/ai/complete',
+    body: {
+      videoId,
+      temperature,
+    },
+    headers: {
+      'Content-type': 'application/json'
+    }
+  })
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -52,12 +62,15 @@ export function App() {
               // resize-none para não deixar o usuário modificar o tamanho
               className="resize-none p-5 leading-relaxed"
               placeholder="Inclua o prompt para a IA..."
+              value={input}
+              onChange={handleInputChange}
             />
 
             <Textarea
               className="resize-none p-5 leading-relaxed"
               placeholder="Resultado gerado pela IA..."
               readOnly
+              value={completion}
             />
           </div>
 
@@ -73,7 +86,7 @@ export function App() {
           <VideoInputForm onVideoUploaded={setVideoId} />
 
           {/* Formulário 2 */}
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSubmit}>
             {/* Prompt */}
             <div className="space-y-1">
               <Label>
@@ -81,7 +94,7 @@ export function App() {
               </Label>
 
               {/* Enviando a função para o prompt como PROP */}
-              <PromptSelect onPromptSelected={handlePromptSelected} />
+              <PromptSelect onPromptSelected={setInput} />
 
               <span className="block text-xs text-muted-foreground italic">Você poderá customizar esta opção em breve</span>
             </div>
@@ -130,7 +143,7 @@ export function App() {
 
             <Separator />
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full"disabled={isLoading}>
               Executar
               <Wand2 className="w-4 h-4 ml-2" />
             </Button>
