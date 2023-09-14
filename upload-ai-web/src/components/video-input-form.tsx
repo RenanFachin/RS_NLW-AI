@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { ChangeEvent, FormEvent, useMemo, useRef, useState } from "react";
 import { getFFmpeg } from "@/lib/ffmpeg";
 import { fetchFile } from "@ffmpeg/util";
+import { api } from "@/lib/axios";
 
 export function VideoInputForm() {
   const [videoFile, setVideoFile] = useState<File | null>(null)
@@ -79,7 +80,26 @@ export function VideoInputForm() {
     // Converter o vídeo em áudio
     const audioFile = await convertVideoToAudio(videoFile)
 
-    console.log(audioFile)
+
+    // formData pq é a maneira como back-end vai receber a requisição [POST] /videos
+    const data = new FormData()
+
+    data.append('file', audioFile)
+  
+    // Enviando o vídeo para o back end
+    const response = await api.post('/videos', data)
+
+    // console.log(response.data) -> validando o retorno do banco de dados
+    // Capturando o valor do id criado no banco de dados
+    const videoId = response.data.video.id
+
+    // gerando a transcrição a partir do ID do vídeo e do prompt que o usuário digitou
+    await api.post(`/videos/${videoId}/transcription`, {
+      prompt
+    })
+
+
+    console.log('Finalizou')
   }
 
   // useMemo faz o previewURl mudar somente se o videoFile for alterado
