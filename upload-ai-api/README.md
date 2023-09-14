@@ -70,5 +70,11 @@ POST /ai/complete
 docker compose up -d
 ```
 
+## Populando o banco de dados
+```sh
+npx prisma db seed
+```
+
+
 ## Variáveis de Ambiente
 Para elaboração que o projeto rode perfeitamente, é necessário que o dev tenha uma APIKEY válida na open ai e adicione no arquivo .env
