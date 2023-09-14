@@ -9,7 +9,11 @@ interface Prompt {
   template: string
 }
 
-export function PromptSelect() {
+interface PromptSelectProps {
+  onPromptSelected: (template: string) => void
+}
+
+export function PromptSelect({ onPromptSelected }: PromptSelectProps) {
   // Carregando os prompts do back-end
   // 1 -> Criar um state para armazenar
   const [prompts, setPrompts] = useState<Prompt[] | null>(null)
@@ -24,8 +28,22 @@ export function PromptSelect() {
     })
   }, [])
 
+  function handlePromptSelected(promptId: string){
+    // Pegando o id (que vem do value do select) e transformando em template
+    // Percorrendo todos os prompts para verificar qual possuí o mesmo id
+    const selectedPrompt = prompts?.find(prompt => prompt.id === promptId)
+
+    if(!selectedPrompt){
+      return
+    }
+
+    // Caso o método find tenha retornado algo, chamar a função
+    onPromptSelected(selectedPrompt.template)
+  }
+
   return (
-    <Select>
+    // Toda vez que o valor do select for alterado, chamar a função que percorre os prompts com o valor de value do select e retorna o template deste prompt e já chama a função
+    <Select onValueChange={handlePromptSelected}>
       <SelectTrigger>
         <SelectValue placeholder="Selecione um prompt" />
       </SelectTrigger>

@@ -9,6 +9,11 @@ import { VideoInputForm } from "./components/video-input-form";
 import { PromptSelect } from "./components/prompt-select";
 
 export function App() {
+  function handlePromptSelected(template: string) {
+    console.log(template)
+  }
+
+
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
@@ -68,7 +73,9 @@ export function App() {
                 Prompt
               </Label>
 
-              <PromptSelect />
+              {/* Enviando a função para o prompt como PROP */}
+              <PromptSelect onPromptSelected={handlePromptSelected} />
+
               <span className="block text-xs text-muted-foreground italic">Você poderá customizar esta opção em breve</span>
             </div>
 
