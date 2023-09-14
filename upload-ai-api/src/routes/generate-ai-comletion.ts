@@ -9,11 +9,11 @@ export async function generateAICompletionRoute(app: FastifyInstance) {
     // O usuário envia junto do vídeo algumas palavras chave pelo front-end
     const bodySchema = z.object({
       videoId: z.string().uuid(),
-      template: z.string(),
+      prompt: z.string(),
       temperature: z.number().min(0).max(1).default(0.5)
     })
 
-    const { videoId, template, temperature } = bodySchema.parse(request.body)
+    const { videoId, prompt, temperature } = bodySchema.parse(request.body)
 
 
     // Procurando o vídeo com o ID informado
@@ -29,7 +29,7 @@ export async function generateAICompletionRoute(app: FastifyInstance) {
     }
 
     // Fazendo a troca de {transcription} por toda a transcrição do vídeo
-    const promptMessagem = template.replace('{transcription}', video.transcription)
+    const promptMessagem = prompt.replace('{transcription}', video.transcription)
 
 
     // chamada para a openAI
