@@ -19,7 +19,12 @@ const statusMessages = {
   success: 'Sucesso!'
 }
 
-export function VideoInputForm() {
+// tipando as props do componente VideoInputForm
+interface VideoInputFormProps {
+  onVideoUploaded: (id: string) => void
+}
+
+export function VideoInputForm({ onVideoUploaded }: VideoInputFormProps) {
   const [videoFile, setVideoFile] = useState<File | null>(null)
   // Criando uma interface de visualização para o processo de envio do form
   const [status, setStatus] = useState<Status>('waiting')
@@ -122,6 +127,9 @@ export function VideoInputForm() {
 
 
     setStatus('success')
+
+    // Chamando a função que atualiza o valor do state para mandar a info do id do vídeo para o app.tsx
+    onVideoUploaded(videoId)
   }
 
   // useMemo faz o previewURl mudar somente se o videoFile for alterado

@@ -16,6 +16,9 @@ export function App() {
     console.log(template)
   }
 
+  // Capturando o valor do videoId que é gerado no componente video-input-form
+  const [videoId, setVideoId] = useState<string | null>(null)
+
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -66,7 +69,8 @@ export function App() {
 
         <aside className="lg:w-1/5 space-y-6">
           {/* Formulário 1  - carregar o vídeo */}
-          <VideoInputForm />
+          {/* Mandando a função que atualiza o state para o componente */}
+          <VideoInputForm onVideoUploaded={setVideoId} />
 
           {/* Formulário 2 */}
           <form className="space-y-5">
